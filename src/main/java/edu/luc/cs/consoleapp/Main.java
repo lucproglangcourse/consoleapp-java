@@ -34,7 +34,7 @@ public class Main {
     }
 
     final var input = new Scanner(System.in).useDelimiter("(?U)[^\\p{Alpha}0-9']+");
-    final var queue = new CircularFifoQueue<>(lastNWords);
+    final var queue = new CircularFifoQueue<String>(lastNWords);
 
     input.forEachRemaining(
         word -> {

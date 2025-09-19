@@ -9,11 +9,17 @@ class SlidingQueue {
 
   protected final Queue<String> queue;
 
-  public SlidingQueue(final int queueSize) {
+  protected final Stream<String> input;
+
+  protected final OutputObserver output;
+
+  public SlidingQueue(final int queueSize, final Stream<String> input, final OutputObserver output) {
     this.queue = new CircularFifoQueue<>(queueSize);
+    this.input = input;
+    this.output = output;
   }
 
-  public void process(final Stream<String> input, final OutputObserver output) {
+  public void process() {
     input
         .takeWhile(
             word -> {

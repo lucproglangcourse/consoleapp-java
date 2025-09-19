@@ -33,8 +33,6 @@ public class MainTestable {
     }
 
     final var input = new Scanner(System.in).useDelimiter("(?U)[^\\p{Alpha}0-9']+");
-    final var slidingQueue = new SlidingQueue(lastNWords);
-
     // an observer instance that sends updates to the console
     final OutputObserver outputToConsole =
         value -> {
@@ -42,7 +40,8 @@ public class MainTestable {
           // terminate on I/O error such as SIGPIPE
           return !System.out.checkError();
         };
+    final var slidingQueue = new SlidingQueue(lastNWords, input.tokens(), outputToConsole);
 
-    slidingQueue.process(input.tokens(), outputToConsole);
+    slidingQueue.process();
   }
 }

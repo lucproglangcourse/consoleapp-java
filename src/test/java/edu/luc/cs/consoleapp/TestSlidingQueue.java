@@ -14,21 +14,20 @@ public class TestSlidingQueue {
 
   @Test
   public void testSlidingWindowEmpty() {
-    final var sut = new SlidingQueue(3);
     final var input = Stream.<String>empty();
-    // an observer instance that sends updates to a buffer (list) for testing
     final var outputToList = new OutputToList();
-    sut.process(input, outputToList);
+    final var sut = new SlidingQueue(3, input, outputToList);
+    sut.process();
     final var result = outputToList.result;
     assertTrue(result.isEmpty());
   }
 
   @Test
   public void testSlidingWindowNonempty() {
-    final var sut = new SlidingQueue(3);
     final var input = Stream.of("asdf", "qwer", "oiui", "zxcv");
     final var outputToList = new OutputToList();
-    sut.process(input, outputToList);
+    final var sut = new SlidingQueue(3, input, outputToList);
+    sut.process();
     final var result = outputToList.result;
     assertEquals(4, result.size());
     assertEquals(List.of("asdf"), result.get(0));

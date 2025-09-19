@@ -56,7 +56,7 @@ public class MainLeaky {
     private final Queue<String> queue;
 
     public LeakyQueue(final int capacity) {
-      queue = new CircularFifoQueue<>(capacity);
+      queue = new CircularFifoQueue<String>(capacity);
     }
 
     private List<Queue<String>> process(final Stream<String> input) {

@@ -26,7 +26,7 @@ public class TestSlidingQueueInteractive {
     expectedTrace.add(new InputEvent("zxcv"));
     expectedTrace.add(new OutputEvent("qwer", "oiui", "zxcv"));
     // create and exercise the SUT
-    final var sut = new SlidingQueue(3);
+    final var sut = new SlidingQueue(3, input,);
     final var actualTrace = new Tracing(sut).run(input);
     // make sure the expected and actual traces match
     assertEquals(expectedTrace, actualTrace);
