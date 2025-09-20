@@ -41,9 +41,9 @@ public class MainStream {
         .tokens()
         .takeWhile(word -> !System.out.checkError())
         .forEach(
-            word -> {
-              queue.add(word); // the oldest item automatically gets evicted
-              System.out.println(queue);
-            });
+          word -> {
+            queue.add(word); // the oldest item automatically gets evicted
+            System.out.println(queue);
+          });
   }
 }

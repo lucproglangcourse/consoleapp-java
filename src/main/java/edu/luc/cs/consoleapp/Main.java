@@ -1,6 +1,7 @@
 package edu.luc.cs.consoleapp;
 
 import java.util.Scanner;
+
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 // see https://stackoverflow.com/questions/1963806/#21699069
@@ -37,13 +38,13 @@ public class Main {
     final var queue = new CircularFifoQueue<String>(lastNWords);
 
     input.forEachRemaining(
-        word -> {
-          queue.add(word); // the oldest item automatically gets evicted
-          System.out.println(queue);
-          // terminate on I/O error such as SIGPIPE
-          if (System.out.checkError()) {
-            System.exit(1);
-          }
-        });
+      word -> {
+        queue.add(word); // the oldest item automatically gets evicted
+        System.out.println(queue);
+        // terminate on I/O error such as SIGPIPE
+        if (System.out.checkError()) {
+          System.exit(1);
+        }
+      });
   }
 }

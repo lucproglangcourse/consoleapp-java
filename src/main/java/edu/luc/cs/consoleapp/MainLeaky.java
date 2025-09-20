@@ -62,12 +62,16 @@ public class MainLeaky {
     private List<Queue<String>> process(final Stream<String> input) {
       final List<Queue<String>> result = new LinkedList<>();
       input.forEach(
-          word -> {
-            queue.add(word); // the oldest item automatically gets evicted
-            final var snapshot = new LinkedList<>(queue);
-            result.add(snapshot);
-          });
+        word -> {
+          queue.add(word); // the oldest item automatically gets evicted
+          final var snapshot = new LinkedList<>(queue);
+          result.add(snapshot);
+        });
       return result;
     }
+  }
+
+  public static int getLastNWords() {
+    return LAST_N_WORDS;
   }
 }

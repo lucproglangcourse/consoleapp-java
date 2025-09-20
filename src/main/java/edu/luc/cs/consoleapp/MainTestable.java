@@ -33,15 +33,26 @@ public class MainTestable {
     }
 
     final var input = new Scanner(System.in).useDelimiter("(?U)[^\\p{Alpha}0-9']+");
-    // an observer instance that sends updates to the console
-    final OutputObserver outputToConsole =
-        value -> {
-          System.out.println(value);
-          // terminate on I/O error such as SIGPIPE
-          return !System.out.checkError();
-        };
-    final var slidingQueue = new SlidingQueue(lastNWords, input.tokens(), outputToConsole);
+    // a handler instance that sends updates to the console
+    final OutputHandler outputToConsole =
+      value -> {
+        System.out.println(value);
+        // terminate on I/O error such as SIGPIPE
+        if (System.out.checkError()) {
+          System.exit(1);
+        }
+      };
+    final var slidingQueue = new SlidingQueue(lastNWords, input, outputToConsole);
 
     slidingQueue.process();
+  }
+
+  public static int getLastNWords() {
+		return LAST_N_WORDS;
+	}
+
+	@Override
+  public String toString() {
+    return "MainTestable []";
   }
 }
