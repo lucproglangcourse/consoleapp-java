@@ -1,10 +1,10 @@
 package edu.luc.cs.consoleapp;
 
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 import java.util.Scanner;
-import java.util.stream.Stream;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
@@ -39,29 +39,32 @@ public class MainLeaky {
     }
 
     final var input = new Scanner(System.in).useDelimiter("(?U)[^\\p{Alpha}0-9']+");
-    final var result = new LeakyQueue(lastNWords).process(input.tokens());
+    final var result = new LeakyQueue(lastNWords, input).process();
 
     result.forEach(
-        value -> {
-          System.out.println(value);
-          // terminate on I/O error such as SIGPIPE
-          if (System.out.checkError()) {
-            System.exit(1);
-          }
-        });
+      value -> {
+        System.out.println(value);
+        // terminate on I/O error such as SIGPIPE
+        if (System.out.checkError()) {
+          System.exit(1);
+        }
+      });
   }
 
-  private static class LeakyQueue {
+  static class LeakyQueue {
 
     private final Queue<String> queue;
 
-    public LeakyQueue(final int capacity) {
-      queue = new CircularFifoQueue<String>(capacity);
+    private final Iterator<String> input;
+
+    public LeakyQueue(final int capacity, final Iterator<String> input) {
+      this.queue = new CircularFifoQueue<String>(capacity);
+      this.input = input;
     }
 
-    private List<Queue<String>> process(final Stream<String> input) {
-      final List<Queue<String>> result = new LinkedList<>();
-      input.forEach(
+    public List<Queue<String>> process() {
+      final var result = new LinkedList<Queue<String>>();
+      input.forEachRemaining(
         word -> {
           queue.add(word); // the oldest item automatically gets evicted
           final var snapshot = new LinkedList<>(queue);
@@ -69,9 +72,5 @@ public class MainLeaky {
         });
       return result;
     }
-  }
-
-  public static int getLastNWords() {
-    return LAST_N_WORDS;
   }
 }

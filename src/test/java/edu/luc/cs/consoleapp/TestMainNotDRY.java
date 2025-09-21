@@ -7,27 +7,37 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Queue;
 
+import org.apache.commons.collections4.queue.CircularFifoQueue;
+
 import org.junit.jupiter.api.Test;
 
-public class TestSlidingQueue {
+public class TestMainNotDRY {
 
   @Test
   public void testSlidingWindowEmpty() {
     final var input = List.<String>of().iterator();
-    final var outputToList = new OutputToList();
-    final var sut = new SlidingQueue(3, input, outputToList);
-    sut.process();
-    final var result = outputToList.result;
+    final var output = new OutputToList();
+    final var queue = new CircularFifoQueue<String>(3);
+    input.forEachRemaining(
+      word -> {
+        queue.add(word); // the oldest item automatically gets evicted
+        output.accept(queue); // send updated queue to output handler
+      });
+    final var result = output.result;
     assertTrue(result.isEmpty());
   }
 
   @Test
   public void testSlidingWindowNonempty() {
     final var input = List.of("asdf", "qwer", "oiui", "zxcv").iterator();
-    final var outputToList = new OutputToList();
-    final var sut = new SlidingQueue(3, input, outputToList);
-    sut.process();
-    final var result = outputToList.result;
+    final var output = new OutputToList();
+    final var queue = new CircularFifoQueue<String>(3);
+    input.forEachRemaining(
+      word -> {
+        queue.add(word); // the oldest item automatically gets evicted
+        output.accept(queue); // send updated queue to output handler
+      });
+    final var result = output.result;
     assertEquals(4, result.size());
     assertEquals(List.of("asdf"), result.get(0));
     assertEquals(List.of("asdf", "qwer"), result.get(1));

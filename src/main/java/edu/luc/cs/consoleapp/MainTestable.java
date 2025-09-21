@@ -46,13 +46,4 @@ public class MainTestable {
 
     slidingQueue.process();
   }
-
-  public static int getLastNWords() {
-		return LAST_N_WORDS;
-	}
-
-	@Override
-  public String toString() {
-    return "MainTestable []";
-  }
 }
