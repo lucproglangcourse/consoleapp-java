@@ -1,4 +1,4 @@
-scalaVersion := "2.13.16"
+scalaVersion := "3.7.3"
 
 compile / javacOptions += "-Xlint:all"
 
