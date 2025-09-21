@@ -5,6 +5,11 @@ import java.util.Queue;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
+/** 
+ * A sliding window queue that retains the last N elements. 
+ * This component is independent of the user interface and can be tested independently.
+ * It takes an OutputHandler to route updates to the appropriate destination.
+ */
 class SlidingQueue {
 
   protected final Queue<String> queue;

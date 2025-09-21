@@ -12,9 +12,6 @@ public class MainStream {
   public static final int LAST_N_WORDS = 10;
 
   public static void main(final String[] args) {
-
-    // TODO consider using a command-line option library
-
     // perform argument validity checking
     if (args.length > 1) {
       System.err.println("usage: ./target/universal/stage/bin/consoleapp [ last_n_words ]");

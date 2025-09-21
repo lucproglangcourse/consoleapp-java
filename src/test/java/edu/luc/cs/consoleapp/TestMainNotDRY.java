@@ -44,15 +44,4 @@ public class TestMainNotDRY {
     assertEquals(List.of("asdf", "qwer", "oiui"), result.get(2));
     assertEquals(List.of("qwer", "oiui", "zxcv"), result.get(3));
   }
-
-  private static class OutputToList implements OutputHandler {
-
-    final List<Queue<String>> result = new ArrayList<>();
-
-    @Override
-    public void accept(final Queue<String> value) {
-      final var snapshot = new LinkedList<>(value);
-      result.add(snapshot);
-    }
-  }
 }

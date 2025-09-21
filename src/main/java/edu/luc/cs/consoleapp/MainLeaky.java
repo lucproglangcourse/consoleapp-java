@@ -1,5 +1,6 @@
 package edu.luc.cs.consoleapp;
 
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Queue;
 import java.util.Scanner;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
+
+import edu.luc.cs.consoleapp.MainLeaky.LeakyQueue;
 
 // see https://stackoverflow.com/questions/1963806/#21699069
 // why we're using this implementation instead of java.util.ArrayQueue!
@@ -16,9 +19,6 @@ public class MainLeaky {
   public static final int LAST_N_WORDS = 10;
 
   public static void main(final String[] args) {
-
-    // TODO consider using a command-line option library
-
     // perform argument validity checking
     if (args.length > 1) {
       System.err.println("usage: ./target/universal/stage/bin/consoleapp [ last_n_words ]");
@@ -51,6 +51,11 @@ public class MainLeaky {
       });
   }
 
+  /** 
+   * A sliding window queue that retains the last N elements. 
+   * This component is independent of the user interface and can be tested independently.
+   * Nevertheless, it violates an important nonfunctional requirement: it leaks memory.
+   */
   static class LeakyQueue {
 
     private final Queue<String> queue;
@@ -70,7 +75,7 @@ public class MainLeaky {
           final var snapshot = new LinkedList<>(queue);
           result.add(snapshot);
         });
-      return result;
+      return Collections.unmodifiableList(result);
     }
   }
 }

@@ -1,5 +1,7 @@
 package edu.luc.cs.consoleapp;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -16,7 +18,7 @@ public class TestSlidingQueueInteractive {
     // the test input
     final var input = List.of("asdf", "qwer", "oiui", "zxcv");
     // the expected interaction trace
-    final var expectedTrace = List.<TraceEvent>of(
+    final var expectedTrace = List.<IOEvent>of(
       new InputEvent("asdf"),
       new OutputEvent("asdf"),
       new InputEvent("qwer"),
@@ -31,15 +33,17 @@ public class TestSlidingQueueInteractive {
     sut.process();
     // // make sure the expected and actual traces match
     final var actualTrace = sut.getTrace();
+    assertEquals(expectedTrace, actualTrace);
   }
 }
 
 // A mini-framework for trace-based testing of interactive behavior (WIP)
 
-interface TraceEvent {}
+/** A common interface for user I/O events. */
+interface IOEvent {}
 
 /** A trace event representing user input. */
-record InputEvent(String value) implements TraceEvent {
+record InputEvent(String value) implements IOEvent {
   @Override
   public String toString() {
     return "InputEvent(" + value + ")";
@@ -47,7 +51,7 @@ record InputEvent(String value) implements TraceEvent {
 }
 
 /** A trace event representing system output. */
-record OutputEvent(List<String> value) implements TraceEvent {
+record OutputEvent(List<String> value) implements IOEvent {
   public OutputEvent(String... values) {
     this(Arrays.asList(values));
   }
@@ -68,7 +72,7 @@ record OutputEvent(List<String> value) implements TraceEvent {
 class SUTWithTracing {
   private final SlidingQueue sut;
 
-  private final LinkedList<TraceEvent> trace = new LinkedList<>();
+  private final LinkedList<IOEvent> trace = new LinkedList<>();
 
   SUTWithTracing(final int capacity, final Collection<String> input) {
     this.sut = new SlidingQueue(capacity, wrapInput(input), outputToTrace());
@@ -78,7 +82,7 @@ class SUTWithTracing {
     sut.process();
   }
 
-  List<TraceEvent> getTrace() {
+  List<IOEvent> getTrace() {
     return Collections.unmodifiableList(trace);
   }
 

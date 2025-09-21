@@ -37,6 +37,8 @@ public class Main {
     final var input = new Scanner(System.in).useDelimiter("(?U)[^\\p{Alpha}0-9']+");
     final var queue = new CircularFifoQueue<String>(lastNWords);
 
+    // this is the core functionality, but it mixes 
+    // I/O and core processing logic and therefore is hard to test
     input.forEachRemaining(
       word -> {
         queue.add(word); // the oldest item automatically gets evicted
