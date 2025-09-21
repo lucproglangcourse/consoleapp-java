@@ -41,7 +41,7 @@ Multiple main classes detected, select one to run:
 
  [1] hw.Main
  [2] hw.MainLeaky
- [3] hw.MainTestableva-sbt
+ [3] hw.MainTestable
 1
 [info] running hw.Main
 w1 w2
