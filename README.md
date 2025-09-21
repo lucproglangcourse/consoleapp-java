@@ -90,11 +90,11 @@ You will then see a summary report in the terminal, and you can view the full re
 
 On macOS:
 
-    $ open target/scala-2.13/jacoco/report/html/index.html
+    $ open target/scala-3.7.3/jacoco/report/html/index.html
 
 On Linux:
 
-    $ xdg-open target/scala-2.13/jacoco/report/html/index.html
+    $ xdg-open target/scala-3.7.3/jacoco/report/html/index.html
 
 On Windows: please let me know if you know how to do this from the WSL
 command line. Otherwise you can open the index file in your web browser.
