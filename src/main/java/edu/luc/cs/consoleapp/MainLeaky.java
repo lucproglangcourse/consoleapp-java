@@ -39,7 +39,8 @@ public class MainLeaky {
     }
 
     final var input = new Scanner(System.in).useDelimiter("(?U)[^\\p{Alpha}0-9']+");
-    final var result = new LeakyQueue(lastNWords, input).process();
+    final var coreLogic = new LeakyQueue(lastNWords, input);
+    final var result = coreLogic.process();
 
     result.forEach(
       value -> {
