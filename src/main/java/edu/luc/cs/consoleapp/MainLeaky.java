@@ -39,7 +39,8 @@ public class MainLeaky {
     }
 
     final var input = new Scanner(System.in).useDelimiter("(?U)[^\\p{Alpha}0-9']+");
-    final var result = new LeakyQueue(lastNWords, input).process();
+    final var coreLogic = new LeakyQueue(lastNWords, input);
+    final var result = coreLogic.process();
 
     result.forEach(
       value -> {
@@ -55,6 +56,8 @@ public class MainLeaky {
    * A sliding window queue that retains the last N elements. 
    * This component is independent of the user interface and can be tested independently.
    * Nevertheless, it violates an important nonfunctional requirement: it leaks memory.
+   * In addition, it violates the functional requirement of 
+   * interactively responding to each input.
    */
   static class LeakyQueue {
 
