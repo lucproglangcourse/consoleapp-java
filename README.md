@@ -1,4 +1,4 @@
-[![Java sbt CI](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-maven.yml/badge.svg)](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-maven.yml)
+[![Java Maven CI](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-maven.yml/badge.svg)](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-maven.yml)
 [![codecov](https://codecov.io/github/lucproglangcourse/consoleapp-java/branch/main/graph/badge.svg?token=506MZ2VOP0)](https://codecov.io/github/lucproglangcourse/consoleapp-java)
 
 # Learning objectives
@@ -12,12 +12,12 @@
 
 # System requirements
 
-* Java 11 SDK or later (Java 21 LTS release recommended)
-* [SBT](https://www.scala-sbt.org/1.x/docs/Setup.html)
+* Java 21 LTS release (recommended) or later
+* [Maven](https://maven.apache.org/) 3.6.3 or later
 
 You may also be able to install these requirements through your package manager or [SDKMAN!](https://sdkman.io/).
 
-Alternatively, you can use an IDE such as IntelliJ IDEA or Android Studio.
+Alternatively, you can use an IDE such as IntelliJ IDEA or Eclipse.
 
 # Description
 
@@ -35,15 +35,10 @@ If multiple words are entered on the same line, the application processes them s
 # Examples
 
 ```
-$ sbt "run 3"
-[info] ...
-Multiple main classes detected, select one to run:
-
- [1] hw.Main
- [2] hw.MainLeaky
- [3] hw.MainTestable
-1
-[info] running hw.Main
+$ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.Main" -Dexec.args="3"
+[INFO] Scanning for projects...
+[INFO] ...
+[INFO] --- exec:3.1.0:java (default-cli) @ consoleapp ---
 w1 w2
 [w1]
 [w1, w2]
@@ -54,63 +49,65 @@ w4 w5
 [w3, w4, w5]
 w6
 [w4, w5, w6]
-EOF
+^C
 ```
 
 # Running the application
 
 Without command-line arguments:
 
-    $ sbt run
+    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.Main"
 
 With a specific command-line argument (sliding queue capacity):
 
-    $ sbt "run 3"
-
-SBT will then prompt you to choose the specific main class you want to run.
+    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.Main" -Dexec.args="3"
 
 # Running a specific main class directly
 
-    $ sbt "runMain edu.luc.cs.consoleapp.Main"
+    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.Main"
 
 or
 
-    $ sbt "runMain edu.luc.cs.consoleapp.Main 3"
+    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.MainLeaky" -Dexec.args="3"
+
+or
+
+    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.MainTestable" -Dexec.args="3"
 
 # Running the tests
 
-    $ sbt test
+    $ mvn test
 
 # Generating the test coverage reports
 
-    $ sbt jacoco
+    $ mvn test jacoco:report
 
-You will then see a summary report in the terminal, and you can view the full report in a web browser.
-(Note that these will get generated only after all tests pass.)
+You can then view the full report in a web browser.
+(Note that this will get generated only after all tests pass.)
 
 On macOS:
 
-    $ open target/scala-3.7.3/jacoco/report/html/index.html
+    $ open target/site/jacoco/index.html
 
 On Linux:
 
-    $ xdg-open target/scala-3.7.3/jacoco/report/html/index.html
+    $ xdg-open target/site/jacoco/index.html
 
 On Windows: please let me know if you know how to do this from the WSL
 command line. Otherwise you can open the index file in your web browser.
 
 *Note that the report will show 0% coverage as long as there are failing tests.*
 
-# Running the application outside SBT
+# Running the application outside Maven
 
-This avoids the performance overhead of running the application through SBT and allows passing command-line arguments directly:
+This uses the executable JAR with all dependencies included, avoiding the overhead of running through Maven:
 
-On Linux or Mac OS X:
+On Linux or macOS:
 
-    $ sbt stage
-    $ ./target/universal/stage/bin/main 3
+    $ mvn clean package
+    $ java -jar target/consoleapp-0.3-jar-with-dependencies.jar 3
 
 On Windows:
 
-    > sbt stage
-    > .\target\universal\stage\bin\main 3
+    > mvn clean package
+    > java -jar target\consoleapp-0.3-jar-with-dependencies.jar 3
