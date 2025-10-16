@@ -2,10 +2,7 @@ package edu.luc.cs.consoleapp;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Queue;
 
 import org.apache.commons.collections4.queue.CircularFifoQueue;
 
@@ -18,11 +15,10 @@ public class TestMainNotDRY {
     final var input = List.<String>of().iterator();
     final var output = new OutputToList();
     final var queue = new CircularFifoQueue<String>(3);
-    input.forEachRemaining(
-      word -> {
-        queue.add(word); // the oldest item automatically gets evicted
-        output.accept(queue); // send updated queue to output handler
-      });
+    input.forEachRemaining(word -> {
+      queue.add(word); // the oldest item automatically gets evicted
+      output.accept(queue); // send updated queue to output handler
+    });
     final var result = output.result;
     assertTrue(result.isEmpty());
   }
@@ -32,11 +28,10 @@ public class TestMainNotDRY {
     final var input = List.of("asdf", "qwer", "oiui", "zxcv").iterator();
     final var output = new OutputToList();
     final var queue = new CircularFifoQueue<String>(3);
-    input.forEachRemaining(
-      word -> {
-        queue.add(word); // the oldest item automatically gets evicted
-        output.accept(queue); // send updated queue to output handler
-      });
+    input.forEachRemaining(word -> {
+      queue.add(word); // the oldest item automatically gets evicted
+      output.accept(queue); // send updated queue to output handler
+    });
     final var result = output.result;
     assertEquals(4, result.size());
     assertEquals(List.of("asdf"), result.get(0));

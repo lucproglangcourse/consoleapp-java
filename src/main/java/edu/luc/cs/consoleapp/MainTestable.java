@@ -32,14 +32,13 @@ public class MainTestable {
     final var input = new Scanner(System.in).useDelimiter("(?U)[^\\p{Alpha}0-9']+");
     // a handler instance that sends updates to the console
     // (the anonymous lambda implements the sole `accept` method)
-    final OutputHandler outputToConsole =
-      value -> {
-        System.out.println(value);
-        // terminate on I/O error such as SIGPIPE
-        if (System.out.checkError()) {
-          System.exit(1);
-        }
-      };
+    final OutputHandler outputToConsole = value -> {
+      System.out.println(value);
+      // terminate on I/O error such as SIGPIPE
+      if (System.out.checkError()) {
+        System.exit(1);
+      }
+    };
     // the main functionality (excluding I/O) is now implemented in SlidingQueue
     final var slidingQueue = new SlidingQueue(lastNWords, input, outputToConsole);
 

@@ -3,9 +3,6 @@ package edu.luc.cs.consoleapp;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import java.util.Queue;
-
-import org.apache.commons.collections4.queue.CircularFifoQueue;
 
 import org.junit.jupiter.api.Test;
 
