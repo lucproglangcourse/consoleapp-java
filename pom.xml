@@ -14,8 +14,9 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.release>21</maven.compiler.release>
+        <maven.version>3.6.3</maven.version>
         <junit.version>5.10.0</junit.version>
-        <jacoco.version>0.8.11</jacoco.version>
+        <jacoco.version>0.8.14</jacoco.version>
     </properties>
 
     <dependencies>
@@ -37,11 +38,34 @@
 
     <build>
         <plugins>
+            <!-- Maven Enforcer Plugin to require minimum Maven version -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-enforcer-plugin</artifactId>
+                <version>3.6.2</version>
+                <executions>
+                    <execution>
+                        <id>enforce-maven</id>
+                        <goals>
+                            <goal>enforce</goal>
+                        </goals>
+                        <configuration>
+                            <rules>
+                                <requireMavenVersion>
+                                    <version>[${maven.version},)</version>
+                                    <message>Maven ${maven.version} or higher is required.</message>
+                                </requireMavenVersion>
+                            </rules>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
             <!-- Maven Compiler Plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.14.1</version>
                 <configuration>
                     <release>${maven.compiler.release}</release>
                     <compilerArgs>
@@ -56,7 +80,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.2.2</version>
+                <version>3.5.4</version>
                 <configuration>
                     <argLine>-enableassertions ${argLine}</argLine>
                 </configuration>
@@ -134,7 +158,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
-                <version>3.6.0</version>
+                <version>3.7.1</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -160,7 +184,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>3.3.0</version>
+                <version>3.4.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -170,26 +194,31 @@
                 </configuration>
             </plugin>
 
-            <!-- Formatter Maven Plugin for code formatting -->
-            <!-- Disabled by default. To enable, create a .formatter.xml config file -->
-            <!-- and uncomment the executions section below -->
+            <!-- Spotless Plugin for code formatting -->
             <plugin>
-                <groupId>net.revelc.code.formatter</groupId>
-                <artifactId>formatter-maven-plugin</artifactId>
-                <version>2.23.0</version>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>2.43.0</version>
                 <configuration>
-                    <configFile>${project.basedir}/.formatter.xml</configFile>
-                    <lineEnding>LF</lineEnding>
+                    <java>
+                        <!-- Using Eclipse formatter with custom config (2 spaces) -->
+                        <eclipse>
+                            <version>4.31</version>
+                            <file>${project.basedir}/.eclipse-formatter.xml</file>
+                        </eclipse>
+                        <removeUnusedImports/>
+                        <trimTrailingWhitespace/>
+                        <endWithNewline/>
+                    </java>
                 </configuration>
-                <!-- Uncomment to enable automatic formatting on compile
                 <executions>
                     <execution>
                         <goals>
-                            <goal>format</goal>
+                            <goal>apply</goal>
                         </goals>
+                        <phase>process-sources</phase>
                     </execution>
                 </executions>
-                -->
             </plugin>
         </plugins>
     </build>
