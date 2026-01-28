@@ -48,7 +48,7 @@ w4 w5
 [w3, w4, w5]
 w6
 [w4, w5, w6]
-^C
+^D
 ```
 
 # Running the application
