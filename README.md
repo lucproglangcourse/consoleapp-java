@@ -1,5 +1,6 @@
 [![Java Gradle CI](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/gradle.yml/badge.svg)](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/github/lucproglangcourse/consoleapp-java/branch/main/graph/badge.svg?token=506MZ2VOP0)](https://codecov.io/github/lucproglangcourse/consoleapp-java)
+[![Codacy](https://app.codacy.com/project/badge/Grade/5bf9f0cf4b994b84b210b95259b4c6b5)](https://app.codacy.com/gh/lucproglangcourse/consoleapp-java/dashboard?utm_source=gh&utm_medium=referral&utm_content=&utm_campaign=Badge_grade)
 
 # Learning objectives
 
