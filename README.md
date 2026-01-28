@@ -1,4 +1,4 @@
-[![Java Maven CI](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-maven.yml/badge.svg)](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-maven.yml)
+[![Java Gradle CI](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-gradle.yml/badge.svg)](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-gradle.yml)
 [![codecov](https://codecov.io/github/lucproglangcourse/consoleapp-java/branch/main/graph/badge.svg?token=506MZ2VOP0)](https://codecov.io/github/lucproglangcourse/consoleapp-java)
 
 # Learning objectives
@@ -13,7 +13,7 @@
 # System requirements
 
 * Java 21 LTS release (recommended) or later
-* [Maven](https://maven.apache.org/) 3.6.3 or later
+* [Gradle](https://gradle.org/) 9.3 or later (using Gradle Wrapper)
 
 You may also be able to install these requirements through your package manager or [SDKMAN!](https://sdkman.io/).
 
@@ -35,10 +35,8 @@ If multiple words are entered on the same line, the application processes them s
 # Examples
 
 ```
-$ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.Main" -Dexec.args="3"
-[INFO] Scanning for projects...
-[INFO] ...
-[INFO] --- exec:3.1.0:java (default-cli) @ consoleapp ---
+$ ./gradlew run --args="3"
+> Task :run
 w1 w2
 [w1]
 [w1, w2]
@@ -56,58 +54,58 @@ w6
 
 Without command-line arguments:
 
-    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.Main"
+    $ ./gradlew run
 
 With a specific command-line argument (sliding queue capacity):
 
-    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.Main" -Dexec.args="3"
+    $ ./gradlew run --args="3"
 
 # Running a specific main class directly
 
-    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.Main"
+    $ ./gradlew run
 
 or
 
-    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.MainLeaky" -Dexec.args="3"
+    $ ./gradlew run -PmainClass=edu.luc.cs.consoleapp.MainLeaky --args="3"
 
 or
 
-    $ mvn compile exec:java -Dexec.mainClass="edu.luc.cs.consoleapp.MainTestable" -Dexec.args="3"
+    $ ./gradlew run -PmainClass=edu.luc.cs.consoleapp.MainTestable --args="3"
 
 # Running the tests
 
-    $ mvn test
+    $ ./gradlew test
 
 # Generating the test coverage reports
 
-    $ mvn test jacoco:report
+    $ ./gradlew test jacocoTestReport
 
 You can then view the full report in a web browser.
 (Note that this will get generated only after all tests pass.)
 
 On macOS:
 
-    $ open target/site/jacoco/index.html
+    $ open build/reports/jacoco/test/html/index.html
 
 On Linux:
 
-    $ xdg-open target/site/jacoco/index.html
+    $ xdg-open build/reports/jacoco/test/html/index.html
 
 On Windows: please let me know if you know how to do this from the WSL
 command line. Otherwise you can open the index file in your web browser.
 
 *Note that the report will show 0% coverage as long as there are failing tests.*
 
-# Running the application outside Maven
+# Running the application outside Gradle
 
-This uses the executable JAR with all dependencies included, avoiding the overhead of running through Maven:
+This uses the executable JAR with all dependencies included, avoiding the overhead of running through Gradle:
 
 On Linux or macOS:
 
-    $ mvn clean package
-    $ java -jar target/consoleapp-0.3-jar-with-dependencies.jar 3
+    $ ./gradlew clean shadowJar
+    $ java -jar build/libs/consoleapp-0.3-jar-with-dependencies.jar 3
 
 On Windows:
 
-    > mvn clean package
-    > java -jar target\consoleapp-0.3-jar-with-dependencies.jar 3
+    > gradlew clean shadowJar
+    > java -jar build\libs\consoleapp-0.3-jar-with-dependencies.jar 3
