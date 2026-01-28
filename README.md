@@ -109,3 +109,20 @@ On Windows:
 
     > gradlew clean shadowJar
     > java -jar build\libs\consoleapp-0.3-jar-with-dependencies.jar 3
+
+## Running with a different main class
+
+To run a different main class (e.g., `MainLeaky`) using the standalone JAR, use the `-cp` (classpath) option with the fully qualified class name:
+
+On Linux or macOS:
+
+    $ java -cp build/libs/consoleapp-0.3-jar-with-dependencies.jar edu.luc.cs.consoleapp.MainLeaky 3
+
+On Windows:
+
+    > java -cp build\libs\consoleapp-0.3-jar-with-dependencies.jar edu.luc.cs.consoleapp.MainLeaky 3
+
+Similarly, for other main classes:
+
+    $ java -cp build/libs/consoleapp-0.3-jar-with-dependencies.jar edu.luc.cs.consoleapp.MainTestable 3
+    $ java -cp build/libs/consoleapp-0.3-jar-with-dependencies.jar edu.luc.cs.consoleapp.MainStream 3
