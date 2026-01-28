@@ -1,4 +1,4 @@
-[![Java Gradle CI](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-gradle.yml/badge.svg)](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/java-gradle.yml)
+[![Java Gradle CI](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/gradle.yml/badge.svg)](https://github.com/lucproglangcourse/consoleapp-java/actions/workflows/gradle.yml)
 [![codecov](https://codecov.io/github/lucproglangcourse/consoleapp-java/branch/main/graph/badge.svg?token=506MZ2VOP0)](https://codecov.io/github/lucproglangcourse/consoleapp-java)
 
 # Learning objectives
